@@ -11,6 +11,7 @@ st.subheader("AI-Powered Career Intelligence")
 skills_df = pd.read_csv("skills.csv")
 careers_df = pd.read_csv("careers.csv")
 opportunities_df = pd.read_csv("opportunities.csv")
+resources_df = pd.read_csv("learning_resources.csv")
 skill_aliases = {
     "nlp": "natural language processing",
     "ml": "machine learning",
