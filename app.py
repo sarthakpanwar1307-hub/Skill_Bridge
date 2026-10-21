@@ -277,7 +277,7 @@ if st.button("Analyze My Profile"):
                             )
                         else:
                             st.write("Learning resource coming soon.")
-                 else:
+                else:
                      st.write("No skills in this stage.")
 
         else:
