@@ -114,7 +114,7 @@ if st.button("Analyze My Profile"):
 
         opportunity_results = []
 
-  # Align this 'for' loop properly with your base indentation level
+  
 for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
     required = {
         normalize_skill(s)
@@ -154,5 +154,5 @@ top = opportunity_results.iloc[0]
 st.write("**Recommended role:**", top["Role"])
 st.write("**Missing skills:**", top["Missing Skills"] or "No missing skills detected.")
 
-else:
-    st.warning("Please enter at least one skill.")
+    else:
+        st.warning("Please enter at least one skill.")
