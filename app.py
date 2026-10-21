@@ -11,6 +11,22 @@ st.subheader("AI-Powered Career Intelligence")
 skills_df = pd.read_csv("skills.csv")
 careers_df = pd.read_csv("careers.csv")
 opportunities_df = pd.read_csv("opportunities.csv")
+skill_aliases = {
+    "nlp": "natural language processing",
+    "ml": "machine learning",
+    "dl": "deep learning",
+    "sklearn": "scikit-learn",
+    "powerbi": "power bi",
+    "js": "javascript",
+    "cpp": "c++",
+    "llm": "large language models",
+    "llms": "large language models",
+    "git hub": "github"
+}
+
+def normalize_skill(skill):
+    skill = skill.strip().lower()
+    return skill_aliases.get(skill, skill)
 
 @st.cache_resource
 def load_model():
@@ -55,11 +71,19 @@ student_skills = st.text_area(
 
 if st.button("Analyze My Profile"):
     if student_skills.strip():
-        student = {s.strip().lower() for s in student_skills.split(",") if s.strip()}
+        student = {
+    normalize_skill(s)
+    for s in student_skills.split(",")
+    if s.strip()
+}
 
         career_results = []
         for _, career in careers_df.iterrows():
-            required = {s.strip().lower() for s in career["required_skills"].split(",")}
+            required = {
+    normalize_skill(s)
+    for s in career["required_skills"].split(",")
+    if s.strip()
+}
             matched = student & required
             missing = required - student
             score = len(matched) / len(required) * 100 if required else 0
@@ -84,10 +108,11 @@ if st.button("Analyze My Profile"):
         opportunity_results = []
 
         for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
-            required = {
-                s.strip().lower()
-                for s in opportunity["required_skills"].split(",")
-            }
+           required = {
+    normalize_skill(s)
+    for s in opportunity["required_skills"].split(",")
+    if s.strip()
+}
             matched = student & required
             missing = required - student
             exact_score = len(matched) / len(required) * 100 if required else 0
