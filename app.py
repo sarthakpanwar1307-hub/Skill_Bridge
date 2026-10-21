@@ -114,7 +114,8 @@ if st.button("Analyze My Profile"):
 
         opportunity_results = []
 
-   for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
+  # Align this 'for' loop properly with your base indentation level
+for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
     required = {
         normalize_skill(s)
         for s in opportunity["required_skills"].split(",")
