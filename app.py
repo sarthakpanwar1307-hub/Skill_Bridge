@@ -193,6 +193,7 @@ if st.button("Analyze My Profile"):
              "seaborn", "power bi", "tableau",
              "fastapi", "rest api"
          }
+        
         st.header("🧭 Your Learning Roadmap")
 
         target_row = careers_df[
@@ -205,47 +206,85 @@ if st.button("Analyze My Profile"):
             if s.strip()
         }
 
+        matched_target_skills = target_skills & student
         missing_target_skills = sorted(target_skills - student)
 
+        readiness = (
+            len(matched_target_skills) / len(target_skills) * 100
+            if target_skills else 0
+        )
+
+        st.subheader(f"🎯 Readiness for {target_career}")
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric("Career Readiness", f"{readiness:.1f}%")
+        col2.metric("Skills Matched", len(matched_target_skills))
+        col3.metric("Skills Remaining", len(missing_target_skills))
+
+        st.progress(int(readiness))
+
+        st.subheader("📊 Skill Gap Overview")
+
+        gap_data = pd.DataFrame({
+            "Status": ["Already Have", "Need to Learn"],
+            "Skills": [
+                len(matched_target_skills),
+                len(missing_target_skills)
+            ]
+        })
+
+        st.bar_chart(gap_data.set_index("Status"))
+
         if missing_target_skills:
-         stages = {
-             "🌱 Beginner": [],
-             "🛠️ Intermediate": [],
-             "🚀 Advanced": []
-         }
+            st.subheader("🚀 Your Next 3 Skills to Learn")
 
-         for skill in missing_target_skills:
-             if skill in beginner_skills:
-                 stages["🌱 Beginner"].append(skill)
-             elif skill in intermediate_skills:
-                 stages["🛠️ Intermediate"].append(skill)
-             else:
-                 stages["🚀 Advanced"].append(skill)
+            for skill in missing_target_skills[:3]:
+                st.write(f"• {skill.title()}")
 
-         for stage, skills in stages.items():
-             st.subheader(stage)
+            stages = {
+                "🌱 Beginner": [],
+                "🛠️ Intermediate": [],
+                "🚀 Advanced": []
+            }
 
-             if skills:
-                 for skill in skills:
-                     
-                     st.write(f"- **{skill.title()}**")
+            for skill in missing_target_skills:
+                if skill in beginner_skills:
+                    stages["🌱 Beginner"].append(skill)
+                elif skill in intermediate_skills:
+                    stages["🛠️ Intermediate"].append(skill)
+                else:
+                    stages["🚀 Advanced"].append(skill)
 
-                     resource = resources_df[
-                         resources_df["skill"].str.lower() == skill.lower()
-                     ]
+            for stage, skills in stages.items():
+                st.subheader(stage)
 
-                     if not resource.empty:
-                         item = resource.iloc[0]
-                         st.write(f"  Resource: {item['resource_name']}")
-                         st.write(f"  Priority: {item['priority']}")
-                         st.markdown(f"[Start Learning]({item['resource_url']})")
-                     else:
-                         st.write("  Learning resource coming soon.")
-             else:
-                  st.write("No skills in this stage.")
+                if skills:
+                    for skill in skills:
+                        st.write(f"**{skill.title()}**")
 
-         else:
-             st.success("You already have all the skills listed for this career!")
+                        resource = resources_df[
+                            resources_df["skill"].str.strip().str.lower()
+                            == skill.lower()
+                        ]
+
+                        if not resource.empty:
+                            item = resource.iloc[0]
+                            st.write(f"Resource: {item['resource_name']}")
+                            st.write(f"Priority: {item['priority']}")
+                            st.markdown(
+                                f"[Start Learning]({item['resource_url']})"
+                            )
+                        else:
+                            st.write("Learning resource coming soon.")
+                 else:
+                     st.write("No skills in this stage.")
+
+        else:
+            st.success(
+                "🎉 You already have all the skills listed for this career!"
+            )
+
 
         st.header("📚 Skill Gap Analysis")
 
