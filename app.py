@@ -156,6 +156,28 @@ if st.button("Analyze My Profile"):
 
         st.header("💼 Top Opportunities")
         st.dataframe(opportunity_results.head(10), use_container_width=True)
+        st.header("🧭 Your Learning Roadmap")
+
+        target_row = careers_df[
+            careers_df["career_role"] == target_career
+        ].iloc[0]
+
+        target_skills = {
+            normalize_skill(s)
+            for s in target_row["required_skills"].split(",")
+            if s.strip()
+        }
+
+        missing_target_skills = sorted(target_skills - student)
+
+        if missing_target_skills:
+            st.write("### Skills to Learn")
+
+            for i, skill in enumerate(missing_target_skills, start=1):
+                st.write(f"{i}. {skill.title()}")
+
+        else:
+            st.success("You already have all the skills listed for this career!")
 
         st.header("📚 Skill Gap Analysis")
 
