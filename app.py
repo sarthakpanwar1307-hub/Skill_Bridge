@@ -203,9 +203,23 @@ if st.button("Analyze My Profile"):
 
              if skills:
                  for skill in skills:
-                     st.write(f"- {skill.title()}")
-             else:
-                 st.write("No skills in this stage.")
+                     
+                     st.write(f"- **{skill.title()}**")
+
+                     resource = resources_df[
+                     resources_df["skill"].str.lower() == skill.lower()
+                 ]
+
+                     if not resource.empty:
+                        item = resource.iloc[0]
+                        st.write(f"  Resource: {item['resource_name']}")
+                        st.write(f"  Priority: {item['priority']}")
+                        st.markdown(f"[Start Learning]({item['resource_url']})")
+                    else:
+                        st.write("  Learning resource coming soon.")
+
+              else:
+                  st.write("No skills in this stage.")
 
          else:
              st.success("You already have all the skills listed for this career!")
