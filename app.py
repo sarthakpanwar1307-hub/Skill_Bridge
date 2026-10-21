@@ -115,27 +115,29 @@ if st.button("Analyze My Profile"):
         opportunity_results = []
 
         for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
-           required = {
-    normalize_skill(s)
-    for s in opportunity["required_skills"].split(",")
-    if s.strip()
-}
-            matched = student & required
-            missing = required - student
-            exact_score = len(matched) / len(required) * 100 if required else 0
-            semantic_score = semantic_scores[i] * 100
-            hybrid_score = 0.5 * exact_score + 0.5 * semantic_score
+    required = {
+        normalize_skill(s)
+        for s in opportunity["required_skills"].split(",")
+        if s.strip()
+    }
 
-            opportunity_results.append({
-                "Role": opportunity["role"],
-                "Type": opportunity["type"],
-                "Location": opportunity["location"],
-                "Exact Score": round(exact_score, 2),
-                "Semantic Score": round(semantic_score, 2),
-                "Hybrid Score": round(hybrid_score, 2),
-                "Matched Skills": ", ".join(sorted(matched)),
-                "Missing Skills": ", ".join(sorted(missing))
-            })
+    matched = student & required
+    missing = required - student
+
+    exact_score = len(matched) / len(required) * 100 if required else 0
+    semantic_score = semantic_scores[i] * 100
+    hybrid_score = 0.5 * exact_score + 0.5 * semantic_score
+
+    opportunity_results.append({
+        "Role": opportunity["role"],
+        "Type": opportunity["type"],
+        "Location": opportunity["location"],
+        "Exact Score": round(exact_score, 2),
+        "Semantic Score": round(semantic_score, 2),
+        "Hybrid Score": round(hybrid_score, 2),
+        "Matched Skills": ", ".join(sorted(matched)),
+        "Missing Skills": ", ".join(sorted(missing))
+    })
 
         opportunity_results = pd.DataFrame(opportunity_results).sort_values(
             "Hybrid Score", ascending=False
