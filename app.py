@@ -8,6 +8,7 @@ st.set_page_config(page_title="SkillBridge", page_icon="🚀", layout="wide")
 st.title("🚀 SkillBridge")
 st.subheader("AI-Powered Career Intelligence")
 
+skills_df = pd.read_csv("skills.csv")
 careers_df = pd.read_csv("careers.csv")
 opportunities_df = pd.read_csv("opportunities.csv")
 
@@ -16,10 +17,40 @@ def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
 model = load_model()
+uploaded_file = st.file_uploader(
+    "Upload your resume (PDF)",
+    type=["pdf"]
+)
 
+if uploaded_file is not None:
+    from pypdf import PdfReader
+
+    reader = PdfReader(uploaded_file)
+
+    resume_text = ""
+
+    for page in reader.pages:
+        resume_text += page.extract_text() or ""
+
+    skill_list = skills_df["skill_name"].tolist()
+
+    found_skills = [
+        skill for skill in skill_list
+        if skill.lower() in resume_text.lower()
+    ]
+
+    st.write("### Skills Found in Your Resume")
+    st.write(", ".join(found_skills) if found_skills else "No matching skills found.")
+
+    if found_skills:
+        default_skills = ", ".join(found_skills)
+    else:
+        default_skills = ""
+else:
+    default_skills = "Python, SQL, Pandas, Machine Learning, Statistics"
 student_skills = st.text_area(
     "Enter your skills, separated by commas",
-    "Python, SQL, Pandas, Machine Learning, Statistics"
+    value=default_skills
 )
 
 if st.button("Analyze My Profile"):
