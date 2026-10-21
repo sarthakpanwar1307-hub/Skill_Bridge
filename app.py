@@ -114,15 +114,14 @@ if st.button("Analyze My Profile"):
 
         opportunity_results = []
 
-        for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
+for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
     required = {
         normalize_skill(s)
         for s in opportunity["required_skills"].split(",")
         if s.strip()
     }
-
-    matched = student & required
-    missing = required - student
+     matched = student & required
+     missing = required - student
 
     exact_score = len(matched) / len(required) * 100 if required else 0
     semantic_score = semantic_scores[i] * 100
