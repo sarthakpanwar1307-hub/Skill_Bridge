@@ -156,6 +156,19 @@ if st.button("Analyze My Profile"):
 
         st.header("💼 Top Opportunities")
         st.dataframe(opportunity_results.head(10), use_container_width=True)
+        beginner_skills = {
+            "python", "sql", "statistics", "excel",
+            "data analysis", "git", "github",
+            "numpy", "pandas"
+         }
+
+        intermediate_skills = {
+             "machine learning", "scikit-learn",
+             "feature engineering", "model evaluation",
+             "predictive modeling", "matplotlib",
+             "seaborn", "power bi", "tableau",
+             "fastapi", "rest api"
+         }
         st.header("🧭 Your Learning Roadmap")
 
         target_row = careers_df[
