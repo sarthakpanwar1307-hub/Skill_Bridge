@@ -184,13 +184,31 @@ if st.button("Analyze My Profile"):
         missing_target_skills = sorted(target_skills - student)
 
         if missing_target_skills:
-            st.write("### Skills to Learn")
+         stages = {
+             "🌱 Beginner": [],
+             "🛠️ Intermediate": [],
+             "🚀 Advanced": []
+         }
 
-            for i, skill in enumerate(missing_target_skills, start=1):
-                st.write(f"{i}. {skill.title()}")
+         for skill in missing_target_skills:
+             if skill in beginner_skills:
+                 stages["🌱 Beginner"].append(skill)
+             elif skill in intermediate_skills:
+                 stages["🛠️ Intermediate"].append(skill)
+             else:
+                 stages["🚀 Advanced"].append(skill)
 
-        else:
-            st.success("You already have all the skills listed for this career!")
+         for stage, skills in stages.items():
+             st.subheader(stage)
+
+             if skills:
+                 for skill in skills:
+                 st.write(f"- {skill.title()}")
+             else:
+             st.write("No skills in this stage.")
+
+         else:
+             st.success("You already have all the skills listed for this career!")
 
         st.header("📚 Skill Gap Analysis")
 
