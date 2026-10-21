@@ -138,9 +138,9 @@ if st.button("Analyze My Profile"):
         "Missing Skills": ", ".join(sorted(missing))
     })
 
-        opportunity_results = pd.DataFrame(opportunity_results).sort_values(
-            "Hybrid Score", ascending=False
-        )
+       opportunity_results = pd.DataFrame(opportunity_results).sort_values(
+    "Hybrid Score", ascending=False
+)
 
         st.header("🎯 Top Career Recommendations")
         st.dataframe(career_results.head(5), use_container_width=True)
