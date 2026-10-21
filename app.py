@@ -142,16 +142,16 @@ opportunity_results = pd.DataFrame(opportunity_results).sort_values(
     "Hybrid Score", ascending=False
 )
 
-        st.header("🎯 Top Career Recommendations")
-        st.dataframe(career_results.head(5), use_container_width=True)
+st.header("🎯 Top Career Recommendations")
+st.dataframe(career_results.head(5), use_container_width=True)
 
-        st.header("💼 Top Opportunities")
-        st.dataframe(opportunity_results.head(10), use_container_width=True)
+st.header("💼 Top Opportunities")
+st.dataframe(opportunity_results.head(10), use_container_width=True)
 
-        st.header("📚 Skill Gap Analysis")
-        top = opportunity_results.iloc[0]
-        st.write("**Recommended role:**", top["Role"])
-        st.write("**Missing skills:**", top["Missing Skills"] or "No missing skills detected.")
+st.header("📊 Skill Gap Analysis")
+top = opportunity_results.iloc[0]
+st.write("**Recommended role:**", top["Role"])
+st.write("**Missing skills:**", top["Missing Skills"] or "No missing skills detected.")
 
-    else:
-        st.warning("Please enter at least one skill.")
+else:
+    st.warning("Please enter at least one skill.")
