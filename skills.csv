@@ -1,0 +1,47 @@
+skill_id,skill_name,category
+S001,Python,Programming
+S002,Java,Programming
+S003,C++,Programming
+S004,JavaScript,Programming
+S005,R,Programming
+S006,SQL,Database
+S007,Machine Learning,Artificial Intelligence
+S008,Deep Learning,Artificial Intelligence
+S009,Statistics,Mathematics
+S010,Data Analysis,Data Science
+S011,Feature Engineering,Data Science
+S012,Model Evaluation,Data Science
+S013,Predictive Modeling,Data Science
+S014,Pandas,Data Analysis
+S015,NumPy,Data Analysis
+S016,Scikit-learn,Machine Learning
+S017,TensorFlow,Deep Learning
+S018,PyTorch,Deep Learning
+S019,Matplotlib,Visualization
+S020,Seaborn,Visualization
+S021,MySQL,Database
+S022,PostgreSQL,Database
+S023,MongoDB,Database
+S024,Data Warehousing,Database
+S025,AWS,Cloud
+S026,Azure,Cloud
+S027,Google Cloud,Cloud
+S028,Docker,Deployment
+S029,Kubernetes,Deployment
+S030,Natural Language Processing,AI
+S031,Computer Vision,AI
+S032,Generative AI,AI
+S033,Large Language Models,AI
+S034,Prompt Engineering,AI
+S035,RAG,AI
+S036,Data Structures,Computer Science
+S037,Algorithms,Computer Science
+S038,Git,Development
+S039,GitHub,Development
+S040,REST API,Development
+S041,FastAPI,Development
+S042,Power BI,Visualization
+S043,Tableau,Visualization
+S044,Excel,Data Analysis
+S045,Business Intelligence,Analytics
+S046,Dashboard Design,Analytics

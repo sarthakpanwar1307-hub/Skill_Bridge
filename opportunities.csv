@@ -1,0 +1,21 @@
+opportunity_id,role,type,required_skills,location
+O001,Data Analyst Intern,Internship,"Python, SQL, Excel, Power BI",Bengaluru
+O002,Data Science Intern,Internship,"Python, Statistics, Machine Learning, Pandas",Hyderabad
+O003,Machine Learning Intern,Internship,"Python, Machine Learning, Scikit-learn",Pune
+O004,AI Intern,Internship,"Python, Deep Learning, Generative AI",Delhi
+O005,Backend Developer Intern,Internship,"Python, REST API, FastAPI, SQL",Noida
+O006,Software Developer Intern,Internship,"C++, Data Structures, Algorithms, Git",Bengaluru
+O007,Business Intelligence Intern,Internship,"SQL, Excel, Power BI, Tableau",Mumbai
+O008,NLP Intern,Internship,"Python, Natural Language Processing, Large Language Models",Hyderabad
+O009,Computer Vision Intern,Internship,"Python, Computer Vision, Deep Learning",Chennai
+O010,Cloud Engineering Intern,Internship,"AWS, Docker, Kubernetes",Pune
+O011,Data Analyst,Full-Time,"Python, SQL, Excel, Power BI, Data Analysis",Gurugram
+O012,Junior Data Scientist,Full-Time,"Python, Statistics, Machine Learning, Pandas",Bengaluru
+O013,ML Engineer,Full-Time,"Python, Machine Learning, TensorFlow, PyTorch",Hyderabad
+O014,AI Engineer,Full-Time,"Python, Deep Learning, Generative AI",Bengaluru
+O015,Backend Developer,Full-Time,"Python, REST API, FastAPI, SQL",Noida
+O016,BI Developer,Full-Time,"SQL, Power BI, Tableau, Dashboard Design",Mumbai
+O017,Data Engineer,Full-Time,"Python, SQL, Data Warehousing, AWS",Pune
+O018,AI Product Engineer,Full-Time,"Python, Generative AI, Large Language Models, RAG",Bengaluru
+O019,Computer Vision Engineer,Full-Time,"Python, Computer Vision, Deep Learning, PyTorch",Chennai
+O020,Cloud Engineer,Full-Time,"AWS, Azure, Docker, Kubernetes",Hyderabad
