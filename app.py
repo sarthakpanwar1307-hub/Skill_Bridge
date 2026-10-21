@@ -77,6 +77,7 @@ student_skills = st.text_area(
 )
 
 
+
 if st.button("Analyze My Profile"):
     if student_skills.strip():
         student = {
@@ -118,7 +119,6 @@ if st.button("Analyze My Profile"):
         )[0]
 
         opportunity_results = []
-
         for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
             required = {
                 normalize_skill(s)
@@ -166,7 +166,6 @@ if st.button("Analyze My Profile"):
             "**Missing skills:**",
             top["Missing Skills"] or "No missing skills detected."
         )
-
     else:
         st.warning("Please enter at least one skill.")
 
