@@ -203,9 +203,9 @@ if st.button("Analyze My Profile"):
 
              if skills:
                  for skill in skills:
-                 st.write(f"- {skill.title()}")
+                     st.write(f"- {skill.title()}")
              else:
-             st.write("No skills in this stage.")
+                 st.write("No skills in this stage.")
 
          else:
              st.success("You already have all the skills listed for this career!")
