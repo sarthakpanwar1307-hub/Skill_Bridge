@@ -64,6 +64,13 @@ if uploaded_file is not None:
         default_skills = ""
 else:
     default_skills = "Python, SQL, Pandas, Machine Learning, Statistics"
+    
+career_options = careers_df["career_role"].tolist()
+
+target_career = st.selectbox(
+    "Choose your target career",
+    career_options
+)
 student_skills = st.text_area(
     "Enter your skills, separated by commas",
     value=default_skills
