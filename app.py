@@ -110,6 +110,29 @@ if st.button("Analyze My Profile"):
         career_results = pd.DataFrame(career_results).sort_values(
             "Match Score", ascending=False
         )
+        
+        st.header("📊 Career Readiness Dashboard")
+
+        top_career = career_results.iloc[0]
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric("Best Career Match", top_career["Career"])
+        col2.metric("Match Score", f'{top_career["Match Score"]}%')
+
+        missing_count = len([
+            s for s in top_career["Missing Skills"].split(",")
+            if s.strip()
+        ])
+
+        col3.metric("Skills to Learn", missing_count)
+
+        st.subheader("Your Top Career Matches")
+
+        st.bar_chart(
+            career_results.head(5).set_index("Career")[["Match Score"]]
+        )
+
 
         texts = opportunities_df["required_skills"].tolist()
 
