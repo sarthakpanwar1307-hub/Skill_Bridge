@@ -326,12 +326,27 @@ if analyze_clicked or st.session_state.get("show_results", False):
                 Do not guarantee job or internship eligibility.
                 """
 
-                response = client.models.generate_content(
-                    model="gemini-3.8-flash",
-                    contents=prompt
-                )
+                response = None
 
-                st.markdown(response.text)
+                for model in ["gemini-3.8-flash", "gemini-2.5-flash"]:
+                    try:
+                       response = client.models.generate_content(
+                           model=model,
+                           contents=prompt
+                       )
+                         break
+                     except Exception:
+                         continue
+
+ 
+
+               if response and response.text:
+                   st.markdown(response.text)
+               else:
+                   st.warning(
+                       "Gemini is temporarily unavailable. "
+                       "Please try again in a few minutes."
+                   )
 
             except Exception as e:
                 st.error(f"Error: {e}")
