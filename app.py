@@ -296,5 +296,47 @@ if st.button("Analyze My Profile"):
             "**Missing skills:**",
             top["Missing Skills"] or "No missing skills detected."
         )
+        
+        st.header("🤖 AI Career Advisor")
+
+        if st.button("Generate AI Career Advice"):
+            try:
+                client = genai.Client(
+                    api_key=st.secrets["GEMINI_API_KEY"]
+                )
+
+                prompt = f"""
+                You are an expert career advisor for computer science students.
+
+                Target career: {target_career}
+                Student skills: {", ".join(sorted(student))}
+                Missing skills: {top["Missing Skills"]}
+                Career readiness: {readiness:.1f}%
+
+                Provide:
+                1. A short assessment of the student's suitability.
+                2. Three important skills to learn next.
+                3. Two practical project ideas.
+                4. A simple 30-day learning plan.
+
+                Be realistic, specific, and easy to understand.
+                Do not guarantee job or internship eligibility.
+                """
+
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=prompt
+                )
+
+                st.markdown(response.text)
+
+            except Exception as e:
+                st.error(
+                    "AI advice could not be generated. "
+                    "Check your API key, model access, and API quota."
+                )
+                import streamlit as st
+from google import genai
+
     else:
         st.warning("Please enter at least one skill.")
