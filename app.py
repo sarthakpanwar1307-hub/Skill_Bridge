@@ -334,9 +334,9 @@ if analyze_clicked or st.session_state.get("show_results", False):
                            model=model,
                            contents=prompt
                        )
-                         break
-                     except Exception:
-                         continue
+                       break
+                   except Exception:
+                       continue
 
  
 
