@@ -337,6 +337,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
                        break
                    except Exception:
                        continue
+                       
 
  
 
