@@ -334,11 +334,9 @@ if analyze_clicked or st.session_state.get("show_results", False):
                 st.markdown(response.text)
 
             except Exception as e:
-                st.error(
-                    "AI advice could not be generated. "
-                    "Check your API key, model access, and API quota."
-                )
+                 st.error(f"Error: {e}")
                 
+            
 
     else:
         st.warning("Please enter at least one skill.")
