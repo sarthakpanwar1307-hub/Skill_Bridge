@@ -322,6 +322,23 @@ if st.button("Analyze My Profile"):
                 Be realistic, specific, and easy to understand.
                 Do not guarantee job or internship eligibility.
                 """
+                
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=prompt
+                )
+
+                if response.text:
+                    st.markdown(response.text)
+                else:
+                    st.warning("The AI returned an empty response.")
+
+            except Exception as e:
+                st.error(
+                    "AI advice could not be generated. "
+                    "Check your API key, model access, and API quota."
+                )
+
 
                 response = client.models.generate_content(
                     model="gemini-2.5-flash",
