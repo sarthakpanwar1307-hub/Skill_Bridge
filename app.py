@@ -300,7 +300,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
             top["Missing Skills"] or "No missing skills detected."
         )
         
-                st.header("🤖 AI Career Advisor")
+        st.header("🤖 AI Career Advisor")
 
         if st.button("Generate AI Career Advice"):
             try:
