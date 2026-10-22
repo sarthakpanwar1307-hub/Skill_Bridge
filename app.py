@@ -337,7 +337,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
     
 
 
-             st.markdown(response.text)
+               st.markdown(response.text)
 
             except Exception as e:
                  st.error(f"Error: {e}")
