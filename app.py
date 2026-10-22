@@ -327,11 +327,17 @@ if analyze_clicked or st.session_state.get("show_results", False):
                 """
 
                 response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=prompt
-                )
+                      model="gemini-3.8-flash",
+                      contents=prompt
+                )    
+                    
+            
+                    
+           
+    
 
-                st.markdown(response.text)
+
+             st.markdown(response.text)
 
             except Exception as e:
                  st.error(f"Error: {e}")
