@@ -326,7 +326,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
                 Do not guarantee job or internship eligibility.
                 """
                 response = client.models.generate_content(
-                     model="gemini-3.8-flash",
+                     model="gemini-3.6-flash",
                     contents=prompt
                 )
                 if response.text:
