@@ -331,23 +331,19 @@ if analyze_clicked or st.session_state.get("show_results", False):
                 for model in ["gemini-3.8-flash", "gemini-2.5-flash"]:
                     try:
                        response = client.models.generate_content(
-                           model=model,
+                           model="gemini-3.8-flash",
                            contents=prompt
                        )
-                       break
-                   except Exception:
-                       continue
+
+                       if response.text:
+                           st.markdown(response.text)
+                       else:
+                           st.warning("Gemini returned an empty response.")
                        
 
  
 
-               if response and response.text:
-                   st.markdown(response.text)
-               else:
-                   st.warning(
-                       "Gemini is temporarily unavailable. "
-                       "Please try again in a few minutes."
-                   )
+                   
 
             except Exception as e:
                 st.error(f"Error: {e}")
