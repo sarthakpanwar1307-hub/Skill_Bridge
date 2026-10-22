@@ -80,7 +80,10 @@ student_skills = st.text_area(
 
 
 
-if st.button("Analyze My Profile"):
+analyze_clicked = st.button("Analyze My Profile")
+
+if analyze_clicked or st.session_state.get("show_results", False):
+    st.session_state["show_results"] = True
     if student_skills.strip():
         student = {
             normalize_skill(s)
