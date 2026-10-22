@@ -335,8 +335,7 @@ if st.button("Analyze My Profile"):
                     "AI advice could not be generated. "
                     "Check your API key, model access, and API quota."
                 )
-                import streamlit as st
-from google import genai
+                
 
     else:
         st.warning("Please enter at least one skill.")
