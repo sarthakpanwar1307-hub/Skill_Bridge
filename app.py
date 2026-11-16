@@ -30,7 +30,19 @@ h1, h2, h3 {
     color: #211B35;
     font-weight: 700;
 }
+/* Hero heading must remain white */
+.sb-hero h1 {
+    color: #FFFFFF !important;
+    font-size: 36px !important;
+    font-weight: 800 !important;
+    opacity: 1 !important;
+}
 
+.sb-hero p {
+    color: #E9DFFF !important;
+    font-size: 16px !important;
+    opacity: 1 !important;
+}
 div[data-testid="stMetric"] {
     background: white;
     border: 1px solid #EAE5F5;
