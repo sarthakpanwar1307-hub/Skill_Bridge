@@ -207,6 +207,20 @@ div[data-testid="stMarkdownContainer"] .sb-hero h1 {
     font-weight: 500 !important;
 }
 
+/* Improve career success message contrast */
+[data-testid="stAlert"] {
+    background-color: #EDE9FE !important;
+    border: 1px solid #C4B5FD !important;
+    border-radius: 12px !important;
+}
+
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] strong {
+    color: #21183D !important;
+    -webkit-text-fill-color: #21183D !important;
+    opacity: 1 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
