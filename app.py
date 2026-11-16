@@ -557,6 +557,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
 
        
         
+       
         if st.button("Generate AI Career Advice"):
             try:
                 with st.spinner("Your AI Career Advisor is preparing recommendations..."):
@@ -564,38 +565,57 @@ if analyze_clicked or st.session_state.get("show_results", False):
                     prompt = f"""
                     You are an expert career advisor for computer science students.
 
+                    Student information:
                     Target career: {target_career}
-                    Student skills: {", ".join(sorted(student))}
+                    Current skills: {", ".join(sorted(student))}
                     Missing skills: {top["Missing Skills"]}
                     Career readiness: {readiness:.1f}%
 
-                    Write a complete and detailed career assessment.
+                    Generate a complete career report.
 
-                    Include ALL FOUR sections:
+                    IMPORTANT:
+                    You MUST include all FOUR sections below.
+                    Do not skip, combine, or shorten any section.
+                    Follow the exact headings and order.
 
-                    1. SUITABILITY ASSESSMENT
+                    SECTION 1: SUITABILITY ASSESSMENT
                     Explain the student's current suitability for the target career.
+                    Mention strengths and areas that need improvement.
 
-                    2. TOP 3 SKILLS TO LEARN
-                    Explain why each skill is important.
+                    SECTION 2: TOP 3 SKILLS TO LEARN
+                    Recommend exactly three important missing skills.
+                    Explain why each skill matters.
 
-                    3. TWO PROJECT IDEAS
-                    Give a project description and the skills each project develops.
+                    SECTION 3: TWO PRACTICAL PROJECT IDEAS
+                    Suggest exactly two projects.
+                    Explain what each project does and which skills it develops.
 
-                    4. 30-DAY LEARNING PLAN
-                    Divide the plan into four weeks with clear tasks.
+                    SECTION 4: PERSONALIZED 30-DAY LEARNING PLAN
 
-                    Use headings and bullet points.
-                    Do not skip any section.
-                    Be realistic and do not guarantee job eligibility.
+                    Divide the plan into these four weeks:
+
+                    Week 1: Learning the fundamentals.
+                    Week 2: Practising the important skills.
+                    Week 3: Building a practical project.
+                    Week 4: Completing the project and preparing a portfolio.
+
+                    Give at least two specific tasks for each week.
+                    Make the tasks relevant to the student's missing skills
+                    and target career.
+
+                    End with a short encouraging recommendation.
+
+                    Return all four sections in complete detail.
+                    Do not omit the 30-day learning plan.
+                    Do not guarantee job or internship eligibility.
                     """
 
                     response = client.models.generate_content(
                         model="gemini-3.6-flash",
                         contents=prompt,
                         config={
-                            "max_output_tokens": 2000,
-                            "temperature": 0.5
+                            "max_output_tokens": 3000,
+                            "temperature": 0.3
                         }
                     )
 
@@ -606,6 +626,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
 
             except Exception as e:
                 st.error(f"Error: {e}")
+
 
 
     
