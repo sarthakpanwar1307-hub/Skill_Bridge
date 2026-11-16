@@ -74,6 +74,41 @@ div[data-testid="stMetricValue"] {
     font-size: 16px;
 }
 
+/* Main page text */
+[data-testid="stMain"] label,
+[data-testid="stMain"] .stMarkdown,
+[data-testid="stMain"] p {
+    color: #29243A;
+}
+
+/* Input fields */
+.stTextInput input,
+.stTextArea textarea,
+.stSelectbox div[data-baseweb="select"] {
+    background-color: #FFFFFF !important;
+    color: #29243A !important;
+    border: 1px solid #E2DCEC !important;
+    border-radius: 10px !important;
+}
+
+/* Input labels */
+[data-testid="stWidgetLabel"] p {
+    color: #39334D !important;
+    font-weight: 600 !important;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] {
+    background: #FFFFFF !important;
+    border: 1px dashed #B9A2E5 !important;
+    border-radius: 14px !important;
+}
+
+/* Main page spacing */
+[data-testid="stMainBlockContainer"] {
+    padding-top: 2rem;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
