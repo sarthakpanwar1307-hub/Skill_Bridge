@@ -74,6 +74,40 @@ div[data-testid="stMetricValue"] {
     font-size: 16px;
 }
 
+/* Hero subtitle */
+.sb-hero p {
+    color: #E9DFFF !important;
+}
+
+/* Form labels */
+[data-testid="stWidgetLabel"] p {
+    color: #39334D !important;
+    font-weight: 600 !important;
+}
+
+/* Text area */
+.stTextArea textarea {
+    background-color: #FFFFFF !important;
+    color: #29243A !important;
+}
+
+/* Dropdown */
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    background-color: #FFFFFF !important;
+    color: #29243A !important;
+}
+
+/* Upload area */
+[data-testid="stFileUploader"] section {
+    background-color: #FFFFFF !important;
+    border-radius: 12px;
+}
+
+/* Buttons */
+.stButton > button {
+    color: #FFFFFF !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
