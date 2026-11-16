@@ -220,7 +220,13 @@ div[data-testid="stMarkdownContainer"] .sb-hero h1 {
     -webkit-text-fill-color: #21183D !important;
     opacity: 1 !important;
 }
-
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] strong {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
