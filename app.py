@@ -6,8 +6,102 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 st.set_page_config(page_title="SkillBridge", page_icon="🚀", layout="wide")
 
-st.title("🚀 SkillBridge")
-st.subheader("AI-Powered Career Intelligence")
+
+st.markdown("""
+<style>
+.stApp {
+    background-color: #F7F7FC;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #191629;
+}
+
+[data-testid="stSidebar"] * {
+    color: #F4F0FF;
+}
+
+.block-container {
+    padding-top: 2rem;
+    max-width: 1450px;
+}
+
+h1, h2, h3 {
+    color: #211B35;
+    font-weight: 700;
+}
+
+div[data-testid="stMetric"] {
+    background: white;
+    border: 1px solid #EAE5F5;
+    padding: 20px;
+    border-radius: 16px;
+}
+
+div[data-testid="stMetricValue"] {
+    color: #7C3AED;
+}
+
+.stButton > button {
+    background: #7C3AED;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    background: #6D28D9;
+    color: white;
+}
+
+.sb-hero {
+    background: linear-gradient(
+        120deg, #21183D, #542B91, #7C3AED
+    );
+    padding: 35px;
+    border-radius: 22px;
+    margin-bottom: 25px;
+}
+
+.sb-hero h1 {
+    color: white !important;
+    font-size: 36px;
+}
+
+.sb-hero p {
+    color: #E9DFFF;
+    font-size: 16px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+with st.sidebar:
+    st.markdown("# 🌉 SkillBridge")
+    st.caption("CAREER INTELLIGENCE")
+    st.divider()
+
+    st.markdown("### Your Workspace")
+    st.markdown("📊 Career Dashboard")
+    st.markdown("💼 Explore Opportunities")
+    st.markdown("🧠 Skill Intelligence")
+    st.markdown("🗺️ Learning Roadmap")
+    st.markdown("✨ AI Career Advisor")
+
+    st.divider()
+    st.caption("Powered by AI")
+
+st.markdown("""
+<div class="sb-hero">
+    <h1>Build Your Future With Clarity.</h1>
+    <p>
+        Understand your skills, discover career opportunities,
+        and create a personalized path towards your goals.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
 
 skills_df = pd.read_csv("skills.csv")
 careers_df = pd.read_csv("careers.csv")
