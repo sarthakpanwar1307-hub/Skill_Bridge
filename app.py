@@ -619,10 +619,18 @@ if analyze_clicked or st.session_state.get("show_results", False):
                         }
                     )
 
+                
                 if response.text:
                     st.markdown(response.text)
+
+                    if response.candidates:
+                        finish_reason = response.candidates[0].finish_reason
+
+                        if str(finish_reason) == "MAX_TOKENS":
+                            st.warning("The AI response was cut short. Please generate again.")
                 else:
                     st.warning("Gemini returned an empty response.")
+
 
             except Exception as e:
                 st.error(f"Error: {e}")
