@@ -156,6 +156,42 @@ div[data-testid="stMarkdownContainer"] .sb-hero h1 {
     color: #625873 !important;
 }
 
+/* Career match and skill analysis text */
+[data-testid="stMain"] {
+    color: #29243A;
+}
+
+[data-testid="stMain"] p,
+[data-testid="stMain"] li,
+[data-testid="stMain"] label {
+    color: #39334D;
+}
+
+/* AI Career Advisor response */
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] p,
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] li {
+    color: #39334D !important;
+}
+
+/* Subheadings and result titles */
+[data-testid="stMain"] h2,
+[data-testid="stMain"] h3,
+[data-testid="stMain"] h4,
+[data-testid="stMain"] h5 {
+    color: #21183D !important;
+}
+
+/* Expander content */
+[data-testid="stExpander"] p,
+[data-testid="stExpander"] li {
+    color: #39334D !important;
+}
+
+/* Success and information messages */
+[data-testid="stAlert"] p {
+    color: #29243A !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
