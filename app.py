@@ -108,6 +108,32 @@ div[data-testid="stMetricValue"] {
     color: #FFFFFF !important;
 }
 
+/* Dashboard headings */
+[data-testid="stMain"] h1,
+[data-testid="stMain"] h2,
+[data-testid="stMain"] h3,
+[data-testid="stMain"] h4,
+[data-testid="stMain"] h5 {
+    color: #21183D !important;
+    font-weight: 750 !important;
+}
+
+/* Section titles and emphasized text */
+[data-testid="stMain"] [data-testid="stMarkdownContainer"] strong {
+    color: #30204F !important;
+}
+
+/* Metric titles */
+[data-testid="stMetricLabel"] {
+    color: #514568 !important;
+    font-weight: 600 !important;
+}
+
+/* Captions */
+[data-testid="stMain"] .stCaption {
+    color: #625873 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
