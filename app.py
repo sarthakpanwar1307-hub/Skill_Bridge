@@ -192,6 +192,21 @@ div[data-testid="stMarkdownContainer"] .sb-hero h1 {
     color: #29243A !important;
 }
 
+/* Hero subtitle */
+[data-testid="stMain"] .sb-hero p {
+    color: #F3ECFF !important;
+    -webkit-text-fill-color: #F3ECFF !important;
+    opacity: 1 !important;
+}
+
+/* Career success message */
+[data-testid="stAlert"] p {
+    color: #29243A !important;
+    -webkit-text-fill-color: #29243A !important;
+    opacity: 1 !important;
+    font-weight: 500 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
