@@ -3,7 +3,13 @@ from google import genai
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+@st.cache_resource
+def get_gemini_client():
+    return genai.Client(
+        api_key=st.secrets["GEMINI_API_KEY"]
+    )
 
+client = get_gemini_client()
 st.set_page_config(page_title="SkillBridge", page_icon="🚀", layout="wide")
 
 
@@ -549,42 +555,46 @@ if analyze_clicked or st.session_state.get("show_results", False):
         
         st.header("🤖 AI Career Advisor")
 
+       
         if st.button("Generate AI Career Advice"):
             try:
-                client = genai.Client(
-                    api_key=st.secrets["GEMINI_API_KEY"]
-                )
+                with st.spinner("Your AI Career Advisor is preparing recommendations..."):
 
-                prompt = f"""
-                You are an expert career advisor for computer science students.
+                    prompt = f"""
+                    Act as a practical career advisor for computer science students.
 
-                Target career: {target_career}
-                Student skills: {", ".join(sorted(student))}
-                Missing skills: {top["Missing Skills"]}
-                Career readiness: {readiness:.1f}%
+                    Target career: {target_career}
+                    Student skills: {", ".join(sorted(student))}
+                    Missing skills: {top["Missing Skills"]}
+                    Career readiness: {readiness:.1f}%
 
-                Provide:
-                1. A short assessment of the student's suitability.
-                2. Three important skills to learn next.
-                3. Two practical project ideas.
-                4. A simple 30-day learning plan.
+                    Give:
+                    1. A brief suitability assessment.
+                    2. Three priority skills to learn.
+                    3. Two practical project ideas.
+                    4. A realistic 30-day learning plan.
 
-                Be realistic, specific, and easy to understand.
-                Do not guarantee job or internship eligibility.
-                """
-                response = client.models.generate_content(
-                     model="gemini-3.6-flash",
-                    contents=prompt
-                )
+                    Use clear headings and concise bullet points.
+                    Be specific. Do not guarantee job or internship eligibility.
+                    """
+
+                    response = client.models.generate_content(
+                        model="gemini-3.6-flash",
+                        contents=prompt,
+                        config={
+                            "max_output_tokens": 700,
+                            "temperature": 0.5
+                        }
+                    )
+
                 if response.text:
                     st.markdown(response.text)
                 else:
                     st.warning("Gemini returned an empty response.")
 
-
-    
             except Exception as e:
-                st.error(f"Error:{e}")
+                st.error(f"Error: {e}")
+
     
                     
 
