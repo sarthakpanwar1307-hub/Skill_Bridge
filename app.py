@@ -556,33 +556,45 @@ if analyze_clicked or st.session_state.get("show_results", False):
         st.header("🤖 AI Career Advisor")
 
        
+        
         if st.button("Generate AI Career Advice"):
             try:
                 with st.spinner("Your AI Career Advisor is preparing recommendations..."):
 
                     prompt = f"""
-                    Act as a practical career advisor for computer science students.
+                    You are an expert career advisor for computer science students.
 
                     Target career: {target_career}
                     Student skills: {", ".join(sorted(student))}
                     Missing skills: {top["Missing Skills"]}
                     Career readiness: {readiness:.1f}%
 
-                    Give:
-                    1. A brief suitability assessment.
-                    2. Three priority skills to learn.
-                    3. Two practical project ideas.
-                    4. A realistic 30-day learning plan.
+                    Write a complete and detailed career assessment.
 
-                    Use clear headings and concise bullet points.
-                    Be specific. Do not guarantee job or internship eligibility.
+                    Include ALL FOUR sections:
+
+                    1. SUITABILITY ASSESSMENT
+                    Explain the student's current suitability for the target career.
+
+                    2. TOP 3 SKILLS TO LEARN
+                    Explain why each skill is important.
+
+                    3. TWO PROJECT IDEAS
+                    Give a project description and the skills each project develops.
+
+                    4. 30-DAY LEARNING PLAN
+                    Divide the plan into four weeks with clear tasks.
+
+                    Use headings and bullet points.
+                    Do not skip any section.
+                    Be realistic and do not guarantee job eligibility.
                     """
 
                     response = client.models.generate_content(
                         model="gemini-3.6-flash",
                         contents=prompt,
                         config={
-                            "max_output_tokens": 700,
+                            "max_output_tokens": 2000,
                             "temperature": 0.5
                         }
                     )
@@ -594,6 +606,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
 
             except Exception as e:
                 st.error(f"Error: {e}")
+
 
     
                     
