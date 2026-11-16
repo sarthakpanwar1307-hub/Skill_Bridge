@@ -75,10 +75,11 @@ div[data-testid="stMetricValue"] {
     border-radius: 22px;
     margin-bottom: 25px;
 }
-
-.sb-hero h1 {
-    color: #FFFFFF !important;
-    font-size: 36px;
+div[data-testid="stMarkdownContainer"] .sb-hero h1 {
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    font-size: 36px !important;
+    font-weight: 800 !important;
 }
 .sb-hero h1 {
     color: #FFFFFF !important;
