@@ -68,7 +68,16 @@ div[data-testid="stMetricValue"] {
     color: white !important;
     font-size: 36px;
 }
+.sb-hero h1 {
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    opacity: 1 !important;
+}
 
+.sb-hero p {
+    color: #E9DFFF !important;
+    opacity: 1 !important;
+}
 .sb-hero p {
     color: #E9DFFF;
     font-size: 16px;
