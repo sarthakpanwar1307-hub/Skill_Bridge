@@ -14,42 +14,49 @@ def get_gemini_client():
 client = get_gemini_client()
 
 
-import hashlib
+
 import json
+import re
+import hashlib
 
 @st.cache_data(ttl=3600)
 def extract_resume_skills(resume_text, skill_list, resume_hash):
 
     prompt = f"""
-    Analyze this complete resume and identify the skills
-    demonstrated by the candidate.
+    Analyze the complete resume and identify skills
+    demonstrated through education, projects and experience.
 
-    Understand skills from context, projects and experience,
-    not just exact keyword matches.
-
-    Only select skills supported by the resume.
-    Do not invent skills.
+    Understand skills from context, not only exact keywords.
+    Do not invent or assume skills.
 
     Select skills only from this list:
     {skill_list}
 
-    Return ONLY a valid JSON array of exact skill names.
-    Do not include explanations or markdown.
+    Return a JSON object in this format:
+    {{"skills": ["Python", "SQL"]}}
 
     Resume:
     {resume_text}
     """
 
-    response = client.models.generate_content(
-        model="gemini-3.8-flash",
-        contents=prompt,
-        config={
-            "max_output_tokens": 250,
-            "temperature": 0.1
-        }
+    response = groq_client.chat.completions.create(
+        model="openai/gpt-oss-20b",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are an accurate resume skill analyzer. Return only valid JSON."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.1,
+        max_completion_tokens=500,
+        response_format={"type": "json_object"}
     )
 
-    ai_skills = json.loads(response.text)
+    result = json.loads(response.choices[0].message.content)
 
     valid_skills = {
         skill.lower(): skill for skill in skill_list
@@ -57,11 +64,12 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
 
     found_skills = []
 
-    for skill in ai_skills:
+    for skill in result["skills"]:
         if skill.lower() in valid_skills:
             found_skills.append(valid_skills[skill.lower()])
 
     return sorted(set(found_skills))
+
 
 st.set_page_config(page_title="SkillBridge", page_icon="🚀", layout="wide")
 
