@@ -460,9 +460,14 @@ if uploaded_file is not None:
 
         try:
             with st.spinner("AI is analyzing your resume..."):
+                resume_hash = hashlib.sha256(
+                    resume_text.encode()
+                ).hexdigest()
+
                 found_skills = extract_resume_skills(
                     resume_text,
-                    skill_list
+                    skill_list,
+                    resume_hash
                 )
 
         except Exception as e:
