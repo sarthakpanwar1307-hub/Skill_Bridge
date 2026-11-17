@@ -266,7 +266,6 @@ st.markdown("""
 
 skills_df = pd.read_csv("skills.csv")
 careers_df = pd.read_csv("careers.csv")
-opportunities_df = pd.read_csv("opportunities.csv")
 resources_df = pd.read_csv("learning_resources.csv")
 skill_aliases = {
     "nlp": "natural language processing",
@@ -335,12 +334,7 @@ def fetch_live_jobs(search_query):
         })
 
     return pd.DataFrame(live_jobs)
-test_jobs = fetch_live_jobs("data analyst")
 
-st.subheader("Live Jobs API Test")
-st.write("Jobs found:", len(test_jobs))
-st.dataframe(test_jobs, use_container_width=True)
-@st.cache_resource
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -448,7 +442,18 @@ if analyze_clicked or st.session_state.get("show_results", False):
         )
 
 
-        texts = opportunities_df["required_skills"].tolist()
+        
+        live_jobs = fetch_live_jobs("data analyst")
+
+        if live_jobs.empty:
+            st.warning("No live jobs found. Please try again later.")
+            st.stop()
+
+        texts = (
+            live_jobs["Role"] + " " +
+            live_jobs["Summary"] + " " +
+            live_jobs["Required Skills"]
+        ).tolist()
 
         embeddings = model.encode([student_skills] + texts)
 
@@ -457,10 +462,11 @@ if analyze_clicked or st.session_state.get("show_results", False):
         )[0]
 
         opportunity_results = []
-        for i, (_, opportunity) in enumerate(opportunities_df.iterrows()):
+
+        for i, (_, opportunity) in enumerate(live_jobs.iterrows()):
             required = {
                 normalize_skill(s)
-                for s in opportunity["required_skills"].split(",")
+                for s in opportunity["Required Skills"].split(",")
                 if s.strip()
             }
 
@@ -475,14 +481,18 @@ if analyze_clicked or st.session_state.get("show_results", False):
             hybrid_score = 0.5 * exact_score + 0.5 * semantic_score
 
             opportunity_results.append({
-                "Role": opportunity["role"],
-                "Type": opportunity["type"],
-                "Location": opportunity["location"],
+                "Role": opportunity["Role"],
+                "Type": opportunity["Type"],
+                "Location": opportunity["Location"],
                 "Exact Score": round(exact_score, 2),
                 "Semantic Score": round(semantic_score, 2),
                 "Hybrid Score": round(hybrid_score, 2),
                 "Matched Skills": ", ".join(sorted(matched)),
-                "Missing Skills": ", ".join(sorted(missing))
+                "Missing Skills": ", ".join(sorted(missing)),
+                "Salary": opportunity["Salary"],
+                "Work Mode": opportunity["Work Mode"],
+                "Experience": opportunity["Experience"],
+                "Apply URL": opportunity["Apply URL"]
             })
 
         opportunity_results = pd.DataFrame(opportunity_results).sort_values(
