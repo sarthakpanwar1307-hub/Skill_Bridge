@@ -291,6 +291,37 @@ def normalize_skill(skill):
     skill = skill.strip().lower()
     return skill_aliases.get(skill, skill)
 
+def clean_job_skills(skills):
+    skill_list = []
+
+    known_skills = [
+        "python", "java", "c++", "sql", "excel",
+        "power bi", "tableau", "machine learning",
+        "deep learning", "statistics", "data analysis",
+        "pandas", "numpy", "scikit-learn", "tensorflow",
+        "pytorch", "nlp", "natural language processing",
+        "javascript", "html", "css", "git",
+        "data structures", "algorithms",
+        "database management", "communication",
+        "problem solving", "analytical skills",
+        "debugging", "attention to detail"
+    ]
+
+    for item in skills:
+        item = item.lower().strip()
+
+        found = False
+
+        for skill in known_skills:
+            if skill in item:
+                skill_list.append(normalize_skill(skill))
+                found = True
+
+        if not found and len(item.split()) <= 3:
+            skill_list.append(normalize_skill(item))
+
+    return list(set(skill_list))
+
 @st.cache_data(ttl=1800)
 def fetch_live_jobs(search_query):
     base_url = "https://jobsforceindia.com/api/public/v1/jobs"
@@ -323,8 +354,8 @@ def fetch_live_jobs(search_query):
         detail = detail_response.json()
 
         location = detail.get("location", {})
-        skills = detail.get("skills", [])
-        preferred = detail.get("skills_preferred", [])
+        skills = clean_job_skills(detail.get("skills", []))
+        preferred = clean_job_skills(detail.get("skills_preferred", []))
 
         live_jobs.append({
             "Role": detail.get("title", ""),
