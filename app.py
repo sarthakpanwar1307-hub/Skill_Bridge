@@ -864,7 +864,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
                     """
 
                     response = client.models.generate_content(
-                        model="gemini-3.6-flash",
+                        model="gemini-3.8-flash",
                         contents=prompt,
                         config={
                             "max_output_tokens": 1800,
