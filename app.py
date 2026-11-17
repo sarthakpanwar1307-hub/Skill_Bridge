@@ -30,22 +30,28 @@ import hashlib
 @st.cache_data(ttl=3600)
 def extract_resume_skills(resume_text, skill_list, resume_hash):
 
+    
     prompt = f"""
-    Analyze the complete resume and identify skills
-    demonstrated through education, projects and experience.
+    Analyze the resume and identify skills demonstrated by
+    the candidate through education, projects and experience.
 
-    Understand skills from context, not only exact keywords.
-    Do not invent or assume skills.
+    Only select skills from this list:
+    {json.dumps(skill_list)}
 
-    Select skills only from this list:
-    {skill_list}
+    Do not invent skills.
 
-    Return a JSON object in this format:
-    {{"skills": ["Python", "SQL"]}}
+    Return a JSON object with exactly this structure:
+    {{
+        "skills": ["Python", "SQL", "Machine Learning"]
+    }}
+
+    If no skills are found, return:
+    {{"skills": []}}
 
     Resume:
     {resume_text}
     """
+
 
     response = groq_client.chat.completions.create(
         model="openai/gpt-oss-20b",
