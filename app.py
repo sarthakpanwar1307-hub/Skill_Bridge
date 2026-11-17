@@ -74,7 +74,7 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
 
     result = json.loads(response_text)
     if not response_text:
-    raise ValueError("Groq returned an empty response.")
+        raise ValueError("Groq returned an empty response.")
     valid_skills = {
         skill.lower(): skill for skill in skill_list
     }
