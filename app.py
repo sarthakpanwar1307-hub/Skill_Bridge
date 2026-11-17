@@ -235,6 +235,18 @@ div[data-testid="stMarkdownContainer"] .sb-hero h1 {
     opacity: 1 !important;
     font-weight: 700 !important;
 }
+.stLinkButton a {
+    color: #FFFFFF !important;
+    background-color: #6D28D9 !important;
+    border: 1px solid #6D28D9 !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+
+.stLinkButton a:hover {
+    background-color: #5B21B6 !important;
+    color: #FFFFFF !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
