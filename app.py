@@ -540,8 +540,46 @@ if analyze_clicked or st.session_state.get("show_results", False):
         st.header("🎯 Top Career Recommendations")
         st.dataframe(career_results.head(5), use_container_width=True)
 
+        
         st.header("💼 Top Opportunities")
-        st.dataframe(opportunity_results.head(10), use_container_width=True)
+
+        for _, job in opportunity_results.head(10).iterrows():
+            with st.container(border=True):
+                st.subheader(job["Role"])
+
+                st.write(
+                    f"📍 {job['Location']}  |  "
+                    f"💼 {job['Type']}  |  "
+                    f"🌐 {job['Work Mode']}"
+                )
+
+                st.write(f"💰 Salary: {job['Salary']}")
+                st.write(f"⏳ Experience: {job['Experience']}")
+
+                st.progress(
+                    min(max(float(job["Hybrid Score"]) / 100, 0), 1)
+                )
+
+                st.write(
+                    f"**Skill Match: {job['Hybrid Score']:.1f}%**"
+                )
+
+                st.write(
+                    "**Matched Skills:**",
+                    job["Matched Skills"] or "None"
+                )
+
+                st.write(
+                    "**Missing Skills:**",
+                    job["Missing Skills"] or "None"
+                )
+
+                if job["Apply URL"]:
+                    st.link_button(
+                        "Apply Now ↗",
+                        job["Apply URL"]
+                    )
+
         beginner_skills = {
             "python", "sql", "statistics", "excel",
             "data analysis", "git", "github",
