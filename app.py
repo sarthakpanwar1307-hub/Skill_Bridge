@@ -51,7 +51,7 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
     """
 
     response = groq_client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[
             {
                 "role": "system",
