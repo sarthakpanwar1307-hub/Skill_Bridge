@@ -462,7 +462,8 @@ if uploaded_file is not None:
                 )
 
         except Exception as e:
-            st.warning("AI analysis failed. Using basic skill detection.")
+            st.error(f"Gemini Error: {e}")
+            st.warning("Using basic skill detection.")
 
             found_skills = [
                 skill for skill in skill_list
