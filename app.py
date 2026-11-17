@@ -32,18 +32,16 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
 
     
     prompt = f"""
-    Analyze the resume and identify skills demonstrated by
-    the candidate through education, projects and experience.
+    Read the resume and identify the candidate's skills.
 
-    Only select skills from this list:
+    Choose only skills from this list:
     {json.dumps(skill_list)}
 
+    Only include skills supported by the resume.
     Do not invent skills.
 
-    Return a JSON object with exactly this structure:
-    {{
-        "skills": ["Python", "SQL", "Machine Learning"]
-    }}
+    Return only this JSON format:
+    {{"skills": ["Python", "SQL"]}}
 
     If no skills are found, return:
     {{"skills": []}}
@@ -51,7 +49,6 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
     Resume:
     {resume_text}
     """
-
 
     response = groq_client.chat.completions.create(
         model="openai/gpt-oss-20b",
@@ -67,10 +64,15 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
         ],
         temperature=0.1,
         max_completion_tokens=500,
-        response_format={"type": "json_object"}
+        
     )
 
-    result = json.loads(response.choices[0].message.content)
+    response_text = response.choices[0].message.content.strip()
+
+    response_text = response_text.replace("```json", "")
+    response_text = response_text.replace("```", "")
+
+    result = json.loads(response_text)
 
     valid_skills = {
         skill.lower(): skill for skill in skill_list
