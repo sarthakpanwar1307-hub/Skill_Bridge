@@ -277,7 +277,7 @@ skill_aliases = {
     "cpp": "c++",
     "llm": "large language models",
     "llms": "large language models",
-    "git hub": "github"
+    "git hub": "github",
     "microsoft excel": "excel",
     "excel proficiency": "excel",
     "proficiency in microsoft excel": "excel",
