@@ -63,7 +63,8 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
             }
         ],
         temperature=0.1,
-        max_completion_tokens=500,
+        max_completion_tokens=1500,
+        reasoning_effort="low",
         
     )
     if not response.choices:
