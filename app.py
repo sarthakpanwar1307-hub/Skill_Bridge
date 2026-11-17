@@ -69,8 +69,9 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
     if not response.choices:
         raise ValueError("Groq returned no response choices.")
 
-    if not response.choices[0].message.content:
-        raise ValueError("Groq returned an empty response.")
+    print("GROQ RESPONSE:", response)
+    print("FINISH REASON:", response.choices[0].finish_reason)
+    print("MESSAGE:", response.choices[0].message)
     response_text = response.choices[0].message.content.strip()
     print("GROQ RAW RESPONSE:", repr(response_text))
     response_text = response_text.replace("```json", "")
