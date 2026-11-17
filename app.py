@@ -278,6 +278,13 @@ skill_aliases = {
     "llm": "large language models",
     "llms": "large language models",
     "git hub": "github"
+    "microsoft excel": "excel",
+    "excel proficiency": "excel",
+    "proficiency in microsoft excel": "excel",
+    "data analysis and interpretation": "data analysis",
+    "statistical knowledge and skills": "statistics",
+    "statistical analysis": "statistics",
+    "scikit learn": "scikit-learn"
 }
 
 def normalize_skill(skill):
