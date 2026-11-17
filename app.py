@@ -450,7 +450,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
 
 
         
-        live_jobs = fetch_live_jobs("data analyst")
+        live_jobs = fetch_live_jobs(target_career)
 
         if live_jobs.empty:
             st.warning("No live jobs found. Please try again later.")
