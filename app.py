@@ -285,6 +285,57 @@ def normalize_skill(skill):
     skill = skill.strip().lower()
     return skill_aliases.get(skill, skill)
 
+@st.cache_data(ttl=1800)
+def fetch_live_jobs(search_query):
+    base_url = "https://jobsforceindia.com/api/public/v1/jobs"
+
+    response = requests.get(
+        base_url,
+        params={
+            "q": search_query,
+            "per_page": 10
+        },
+        timeout=15
+    )
+
+    response.raise_for_status()
+    jobs = response.json().get("results", [])
+
+    live_jobs = []
+
+    for job in jobs:
+        detail_url = f"{base_url}/{job['id']}"
+
+        detail_response = requests.get(
+            detail_url,
+            timeout=15
+        )
+
+        if detail_response.status_code != 200:
+            continue
+
+        detail = detail_response.json()
+
+        location = detail.get("location", {})
+        skills = detail.get("skills", [])
+        preferred = detail.get("skills_preferred", [])
+
+        live_jobs.append({
+            "Role": detail.get("title", ""),
+            "Type": detail.get("job_type", ""),
+            "Location": location.get("city") or "India",
+            "Required Skills": ", ".join(skills),
+            "Preferred Skills": ", ".join(preferred),
+            "Salary": (detail.get("salary") or {}).get("label", "Not specified"),
+            "Work Mode": detail.get("work_mode", "Not specified"),
+            "Experience": (detail.get("experience") or {}).get("label", "Not specified"),
+            "Summary": detail.get("summary", ""),
+            "URL": detail.get("url", ""),
+            "Apply URL": detail.get("apply_url", "")
+        })
+
+    return pd.DataFrame(live_jobs)
+
 @st.cache_resource
 def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
