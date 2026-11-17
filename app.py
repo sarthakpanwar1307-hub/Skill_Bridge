@@ -35,7 +35,7 @@ def extract_resume_skills(resume_text, skill_list):
     """
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3.8-flash",
         contents=prompt,
         config={
             "max_output_tokens": 1500,
