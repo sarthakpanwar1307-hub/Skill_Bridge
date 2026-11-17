@@ -287,6 +287,11 @@ def normalize_skill(skill):
 
 @st.cache_data(ttl=1800)
 def fetch_live_jobs(search_query):
+    test_jobs = fetch_live_jobs("data analyst")
+
+    st.subheader("Live Jobs API Test")
+    st.write("Jobs found:", len(test_jobs))
+    st.dataframe(test_jobs, use_container_width=True)
     base_url = "https://jobsforceindia.com/api/public/v1/jobs"
 
     response = requests.get(
