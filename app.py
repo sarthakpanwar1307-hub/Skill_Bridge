@@ -867,22 +867,32 @@ if analyze_clicked or st.session_state.get("show_results", False):
                         model="gemini-3.8-flash",
                         contents=prompt,
                         config={
-                            "max_output_tokens": 1800,
+                            "max_output_tokens": 4096,
                             "temperature": 0.3
                         }
                     )
 
                 
-                if response.text:
-                    st.markdown(response.text)
+                if response.candidates:
+                    candidate = response.candidates[0]
 
-                    if response.candidates:
-                        finish_reason = response.candidates[0].finish_reason
+                    if candidate.content and candidate.content.parts:
+                        answer = "".join(
+                            part.text for part in candidate.content.parts
+                            if part.text
+                        )
 
-                        if str(finish_reason) == "MAX_TOKENS":
-                            st.warning("The AI response was cut short. Please generate again.")
+                        if answer:
+                            st.markdown(answer)
+
+                            if str(candidate.finish_reason) == "MAX_TOKENS":
+                                st.warning("The response reached its token limit. Please generate again.")
+                        else:
+                            st.warning("Gemini returned an empty response.")
+                    else:
+                        st.warning("Gemini did not return any content.")
                 else:
-                    st.warning("Gemini returned an empty response.")
+                    st.warning("Gemini returned no response candidates.")
 
 
             except Exception as e:
