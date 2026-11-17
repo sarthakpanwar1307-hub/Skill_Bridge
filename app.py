@@ -1,6 +1,8 @@
 import streamlit as st
 from google import genai
 import pandas as pd
+import requests
+import re
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 @st.cache_resource
