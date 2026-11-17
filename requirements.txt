@@ -7,3 +7,4 @@ networkx
 matplotlib
 pypdf
 google-genai
+groq
