@@ -287,16 +287,16 @@ def normalize_skill(skill):
 
 @st.cache_data(ttl=1800)
 def fetch_live_jobs(search_query):
-     base_url = "https://jobsforceindia.com/api/public/v1/jobs"
+    base_url = "https://jobsforceindia.com/api/public/v1/jobs"
 
-     response = requests.get(
-         base_url,
-         params={
-            "q": search_query,
-             "per_page": 10
-         },
-         timeout=15
-     )
+    response = requests.get(
+     base_url,
+     params={
+        "q": search_query,
+          "per_page": 10
+     },
+     timeout=15
+    )
 
     response.raise_for_status()
     jobs = response.json().get("results", [])
