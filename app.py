@@ -12,6 +12,53 @@ def get_gemini_client():
     )
 
 client = get_gemini_client()
+
+def extract_resume_skills(resume_text, skill_list):
+    prompt = f"""
+    You are an expert resume analyzer.
+
+    Analyze the following resume carefully.
+    Identify skills based on their meaning and context,
+    not just exact keyword matches.
+
+    Only identify skills that are genuinely supported
+    by the resume. Do not invent or assume skills.
+
+    Choose skills only from this list:
+    {skill_list}
+
+    Return ONLY a valid JSON array containing the
+    exact skill names from the list.
+
+    Resume:
+    {resume_text}
+    """
+
+    response = client.models.generate_content(
+        model="gemini-3.6-flash",
+        contents=prompt,
+        config={
+            "max_output_tokens": 1500,
+            "temperature": 0.1
+        }
+    )
+
+    import json
+
+    ai_skills = json.loads(response.text)
+
+    valid_skills = {
+        skill.lower(): skill for skill in skill_list
+    }
+
+    found_skills = []
+
+    for skill in ai_skills:
+        if skill.lower() in valid_skills:
+            found_skills.append(valid_skills[skill.lower()])
+
+    return sorted(set(found_skills))
+
 st.set_page_config(page_title="SkillBridge", page_icon="🚀", layout="wide")
 
 
@@ -404,12 +451,24 @@ if uploaded_file is not None:
     for page in reader.pages:
         resume_text += page.extract_text() or ""
 
-    skill_list = skills_df["skill_name"].tolist()
+    
+        skill_list = skills_df["skill_name"].tolist()
 
-    found_skills = [
-        skill for skill in skill_list
-        if skill.lower() in resume_text.lower()
-    ]
+        try:
+            with st.spinner("AI is analyzing your resume..."):
+                found_skills = extract_resume_skills(
+                    resume_text,
+                    skill_list
+                )
+
+        except Exception as e:
+            st.warning("AI analysis failed. Using basic skill detection.")
+
+            found_skills = [
+                skill for skill in skill_list
+                if skill.lower() in resume_text.lower()
+            ]
+        
 
     st.write("### Skills Found in Your Resume")
     st.write(", ".join(found_skills) if found_skills else "No matching skills found.")
