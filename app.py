@@ -12,7 +12,15 @@ def get_gemini_client():
     )
 
 client = get_gemini_client()
+from groq import Groq
 
+@st.cache_resource
+def get_groq_client():
+    return Groq(
+        api_key=st.secrets["GROQ_API_KEY"]
+    )
+
+groq_client = get_groq_client()
 
 
 import json
