@@ -51,7 +51,7 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
     """
 
     response = groq_client.chat.completions.create(
-        model="openai/gpt-oss-20b",
+        model="llama-3.3-70b-versatile",
         messages=[
             {
                 "role": "system",
@@ -66,7 +66,11 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
         max_completion_tokens=500,
         
     )
+    if not response.choices:
+        raise ValueError("Groq returned no response choices.")
 
+    if not response.choices[0].message.content:
+        raise ValueError("Groq returned an empty response.")
     response_text = response.choices[0].message.content.strip()
     print("GROQ RAW RESPONSE:", repr(response_text))
     response_text = response_text.replace("```json", "")
