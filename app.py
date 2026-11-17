@@ -44,7 +44,7 @@ def extract_resume_skills(resume_text, skill_list, resume_hash):
         model="gemini-3.8-flash",
         contents=prompt,
         config={
-            "max_output_tokens": 500,
+            "max_output_tokens": 250,
             "temperature": 0.1
         }
     )
