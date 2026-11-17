@@ -838,7 +838,7 @@ if analyze_clicked or st.session_state.get("show_results", False):
                         model="gemini-3.6-flash",
                         contents=prompt,
                         config={
-                            "max_output_tokens": 3000,
+                            "max_output_tokens": 1800,
                             "temperature": 0.3
                         }
                     )
