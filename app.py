@@ -13,22 +13,28 @@ def get_gemini_client():
 
 client = get_gemini_client()
 
-def extract_resume_skills(resume_text, skill_list):
-    prompt = f"""
-    You are an expert resume analyzer.
 
-    Analyze the following resume carefully.
-    Identify skills based on their meaning and context,
+import hashlib
+import json
+
+@st.cache_data(ttl=3600)
+def extract_resume_skills(resume_text, skill_list, resume_hash):
+
+    prompt = f"""
+    Analyze this complete resume and identify the skills
+    demonstrated by the candidate.
+
+    Understand skills from context, projects and experience,
     not just exact keyword matches.
 
-    Only identify skills that are genuinely supported
-    by the resume. Do not invent or assume skills.
+    Only select skills supported by the resume.
+    Do not invent skills.
 
-    Choose skills only from this list:
+    Select skills only from this list:
     {skill_list}
 
-    Return ONLY a valid JSON array containing the
-    exact skill names from the list.
+    Return ONLY a valid JSON array of exact skill names.
+    Do not include explanations or markdown.
 
     Resume:
     {resume_text}
@@ -38,12 +44,10 @@ def extract_resume_skills(resume_text, skill_list):
         model="gemini-3.8-flash",
         contents=prompt,
         config={
-            "max_output_tokens": 1500,
+            "max_output_tokens": 500,
             "temperature": 0.1
         }
     )
-
-    import json
 
     ai_skills = json.loads(response.text)
 
